@@ -65,13 +65,13 @@ Partial Class Form1
         '
         Me.AvarageAlignedReadsBestToolStripMenuItem.Name = "AvarageAlignedReadsBestToolStripMenuItem"
         Me.AvarageAlignedReadsBestToolStripMenuItem.Size = New System.Drawing.Size(235, 22)
-        Me.AvarageAlignedReadsBestToolStripMenuItem.Text = "Avarage Aligned Reads Best"
+        Me.AvarageAlignedReadsBestToolStripMenuItem.Text = "Average Aligned Reads Best"
         '
         'AvarageMisMatchIndelsBestToolStripMenuItem
         '
         Me.AvarageMisMatchIndelsBestToolStripMenuItem.Name = "AvarageMisMatchIndelsBestToolStripMenuItem"
         Me.AvarageMisMatchIndelsBestToolStripMenuItem.Size = New System.Drawing.Size(235, 22)
-        Me.AvarageMisMatchIndelsBestToolStripMenuItem.Text = "Avarage MisMatch, Indels Best"
+        Me.AvarageMisMatchIndelsBestToolStripMenuItem.Text = "Average MisMatch, Indels Best"
         '
         'GeneralCoverageToolStripMenuItem
         '

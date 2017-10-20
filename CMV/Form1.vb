@@ -43,20 +43,20 @@ Public Class Form1
                 Dim ALs As New List(Of CMV.MD.M_Ins_Del)
                 Dim Sams = Bam_Parse(File)
                 For Each Sam In Get_Bests(Sams)
-                    Dim MD_String = (From x In Sam.OptionalFields Where x.Tag = "MD").First.Value
 
-                    Dim X1 As New CMV.MD.M_Ins_Del(MD_String, Get_CIGARS(Sam.CIGAR))
-                    str.AppendLine()
-                    str.Append(Sam.RName).Append(vbTab)
-                    str.Append(X1.Deletions_From_Ref_Genome).Append(vbTab)
-                    str.Append(X1.Insertions).Append(vbTab)
-                    str.Append(X1.Matches).Append(vbTab)
-                    str.Append(X1.MisMatches).Append(vbTab)
-                    str.Append(X1.NofD_CIGar)
+                    Dim MD_String = From x In Sam.OptionalFields Where x.Tag = "MD"
+                    If MD_String.Count > 0 Then
+                        Dim X1 As New CMV.MD.M_Ins_Del(MD_String.First.Value, Get_CIGARS(Sam.CIGAR))
+                        str.AppendLine()
+                        str.Append(Sam.QName).Append(vbTab)
+                        str.Append(X1.Deletions_From_Ref_Genome).Append(vbTab)
+                        str.Append(X1.Insertions).Append(vbTab)
+                        str.Append(X1.Matches).Append(vbTab)
+                        str.Append(X1.MisMatches).Append(vbTab)
+                        str.Append(X1.NofD_CIGar)
+                    End If
                 Next ' SAM
                 SaveText(str.ToString, New FileInfo(File.FullName & ".tsv"))
-                '     str.Append(ALs.Sum / ALs.Count * 100).AppendLine()
-
             Next
 
         Catch ex As Exception
@@ -70,18 +70,18 @@ Public Class Form1
         Dim Files = SelectFiles("")
         Try
             Dim str As New System.Text.StringBuilder
-            str.Append("Avarage Aligned Lengts Bests").AppendLine()
+            str.Append("Read ID").Append(vbTab).Append("Aligned Length")
             For Each File In Files
                 str.Append(File.Name).Append(vbTab)
                 Dim Sams = Bam_Parse(File)
                 Dim Best_ALs As New List(Of Integer)
 
                 For Each Item In Get_Bests(Sams)
-                    Best_ALs.Add(Get_Aligned_Length(Item))
+                    str.AppendLine.Append(Item.QName).Append(vbTab).Append(Get_Aligned_Length(Item))
                 Next
-                str.Append(Best_ALs.Sum / Best_ALs.Count).AppendLine()
+                SaveText(str.ToString, New FileInfo(File.FullName & ".tsv"))
             Next ' FIle
-            Clipboard.SetText(str.ToString)
+
         Catch ex As Exception
             Dim kj As Int16 = MsgBox(ex.ToString)
         End Try
@@ -100,7 +100,7 @@ Public Class Form1
             str.Append("SeqID").Append(vbTab)
             str.Append("MisMatch").Append(vbTab)
             str.Append("Nof Reads").Append(vbTab)
-            str.Append("Avarage Identity").AppendLine()
+            str.Append("Average Identity").AppendLine()
             For Each FIle In files
                 For Each Lines In Parse_Group_Lines(FIle, "#") ' Read By Read
                     Dim Used As New List(Of String) ' Take only the first HSP
