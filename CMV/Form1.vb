@@ -53,7 +53,7 @@ Public Class Form1
                         str.Append(X1.Insertions).Append(vbTab)
                         str.Append(X1.Matches).Append(vbTab)
                         str.Append(X1.MisMatches).Append(vbTab)
-                        str.Append(X1.NofD_CIGar)
+                        '     str.Append(X1.NofD_CIGar)
                     End If
                 Next ' SAM
                 SaveText(str.ToString, New FileInfo(File.FullName & ".tsv"))
